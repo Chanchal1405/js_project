@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>College Event Registration</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+background: linear-gradient(135deg,#1d976c,#93f9b9);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+margin:0;
+}
+
+.container{
+background:white;
+padding:30px;
+width:400px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+h2{
+text-align:center;
+margin-bottom:20px;
+color:#1d976c;
+}
+
+label{
+font-weight:bold;
+display:block;
+margin-top:10px;
+}
+
+input, select{
+width:100%;
+padding:10px;
+margin-top:5px;
+border:1px solid #ccc;
+border-radius:6px;
+}
+
+.gender-group{
+margin-top:10px;
+}
+
+.gender-option{
+display:flex;
+align-items:center;
+margin-top:5px;
+}
+
+.gender-option input{
+width:auto;
+margin-right:8px;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:20px;
+background:#1d976c;
+color:white;
+border:none;
+border-radius:6px;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#148f60;
+}
+
+</style>
+
+<script>
+
+function validateForm(){
+
+let name=document.getElementById("name").value;
+let email=document.getElementById("email").value;
+let phone=document.getElementById("phone").value;
+let college=document.getElementById("college").value;
+let event=document.getElementById("event").value;
+
+if(name==""){
+alert("Enter your name");
+return false;
+}
+
+if(email=="" || !email.includes("@")){
+alert("Enter valid email");
+return false;
+}
+
+if(phone.length!=10 || isNaN(phone)){
+alert("Enter valid 10 digit phone number");
+return false;
+}
+
+if(college==""){
+alert("Enter college name");
+return false;
+}
+
+if(event==""){
+alert("Select an event");
+return false;
+}
+
+alert("Registration Successful 🎉");
+return true;
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>College Event Registration</h2>
+
+<form onsubmit="return validateForm()">
+
+<label>Full Name</label>
+<input type="text" id="name">
+
+<label>Email</label>
+<input type="text" id="email">
+
+<label>Phone Number</label>
+<input type="text" id="phone">
+
+<label>College Name</label>
+<input type="text" id="college">
+
+<label>Year</label>
+<select id="year">
+<option value="">Select Year</option>
+<option>1st Year</option>
+<option>2nd Year</option>
+<option>3rd Year</option>
+<option>4th Year</option>
+</select>
+
+<label>Event</label>
+<select id="event">
+<option value="">Select Event</option>
+<option>Hackathon</option>
+<option>Paper Presentation</option>
+<option>Coding Competition</option>
+<option>Technical Quiz</option>
+<option>Cultural Dance</option>
+</select>
+
+<div class="gender-group">
+<label>Gender</label>
+
+<div class="gender-option">
+<input type="radio" name="gender">
+<span>Male</span>
+</div>
+
+<div class="gender-option">
+<input type="radio" name="gender">
+<span>Female</span>
+</div>
+
+<div class="gender-option">
+<input type="radio" name="gender">
+<span>Other</span>
+</div>
+
+</div>
+
+<button type="submit">Register</button>
+
+</form>
+
+</div>
+
+</body>
+</html>
