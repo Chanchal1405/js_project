@@ -1,189 +1,230 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>College Event Registration</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>TechnoFest 2026</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,'Segoe UI',sans-serif;}
+        body{background:linear-gradient(135deg,#0a2f24,#1d976c);min-height:100vh;padding:1rem;}
+        .container{max-width:1300px;margin:0 auto;}
+        .card{background:white;border-radius:32px;padding:1.5rem;box-shadow:0 20px 35px -10px rgba(0,0,0,0.2);}
+        .header{background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);padding:1.2rem;text-align:center;border-radius:32px;margin-bottom:1.5rem;color:white;}
+        .header h1{font-size:clamp(1.4rem,6vw,2rem);}
+        .flex{display:flex;gap:1rem;flex-wrap:wrap;justify-content:space-between;align-items:center;}
+        .btn{background:#1d976c;color:white;border:none;padding:0.7rem 1.5rem;border-radius:40px;font-weight:bold;cursor:pointer;transition:0.2s;}
+        .btn-danger{background:#dc3545;}
+        .btn:hover{transform:scale(0.97);}
+        .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.2rem;margin:1.5rem 0;}
+        .event-card{background:#f9fafb;border-radius:24px;overflow:hidden;border:1px solid #e2e8f0;}
+        .event-header{background:linear-gradient(135deg,#1d976c,#6bcb9a);padding:1rem;text-align:center;color:white;}
+        .event-header h3{font-size:1.3rem;}
+        .event-body{padding:1rem;}
+        .event-info p{margin:0.5rem 0;font-size:0.9rem;}
+        .prize{background:#fff3e0;padding:0.5rem;border-radius:12px;text-align:center;font-weight:bold;margin:0.8rem 0;}
+        .form-group{margin-bottom:1rem;}
+        .form-group label{display:block;font-weight:600;margin-bottom:0.4rem;color:#1f3d34;}
+        input,select{width:100%;padding:0.75rem;border:2px solid #e2e8f0;border-radius:20px;font-size:0.95rem;}
+        input:focus,select:focus{border-color:#1d976c;outline:none;}
+        .gender-group{display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:0.3rem;}
+        .gender-option{display:flex;align-items:center;gap:0.4rem;}
+        .msg{padding:0.7rem;border-radius:40px;text-align:center;margin-top:1rem;display:none;}
+        .success{background:#d4edda;color:#155724;}
+        .error{background:#f8d7da;color:#721c24;}
+        .tab-btn{flex:1;padding:0.8rem;font-weight:bold;border:none;cursor:pointer;}
+        .active{background:#1d976c;color:white;}
+        .inactive{background:#eef2f5;color:#2c5a4a;}
+        @media (max-width:640px){.card{padding:1rem;}}
+    </style>
+</head>
+<body>
+<div id="app">
+    <!-- Auth Section -->
+    <div id="authSection">
+        <div class="header"><h1>🎓 TECHNOFEST 2026</h1><p>Login & Register for Events</p></div>
+        <div class="container"><div class="card">
+            <div style="display:flex"><button id="loginTab" class="tab-btn active">🔐 Login</button><button id="signupTab" class="tab-btn inactive">📝 Sign Up</button></div>
+            <div id="loginPanel" style="padding:1.2rem 0">
+                <input type="email" id="loginEmail" placeholder="Email" style="margin-bottom:1rem">
+                <input type="password" id="loginPass" placeholder="Password">
+                <button id="doLogin" class="btn" style="width:100%;margin-top:1rem">Login</button>
+                <p style="text-align:center;font-size:0.8rem;margin-top:1rem">Demo: alex@college.edu / demo123</p>
+            </div>
+            <div id="signupPanel" style="display:none;padding:1.2rem 0">
+                <input type="text" id="sName" placeholder="Full Name">
+                <input type="email" id="sEmail" placeholder="Email" style="margin-top:0.8rem">
+                <input type="tel" id="sPhone" placeholder="Phone (10 digits)" maxlength="10" style="margin-top:0.8rem">
+                <input type="text" id="sCollege" placeholder="College Name" style="margin-top:0.8rem">
+                <select id="sYear" style="margin-top:0.8rem"><option value="">Year</option><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select>
+                <div class="gender-group" style="margin:0.8rem 0"><label class="gender-option"><input type="radio" name="signupGender" value="Male"> Male</label><label class="gender-option"><input type="radio" name="signupGender" value="Female"> Female</label><label class="gender-option"><input type="radio" name="signupGender" value="Other"> Other</label></div>
+                <input type="password" id="sPass" placeholder="Password (min 6 chars)">
+                <button id="doSignup" class="btn" style="width:100%;margin-top:1rem">Register</button>
+            </div>
+        </div></div>
+    </div>
 
-<style>
-
-body{
-font-family: Arial, sans-serif;
-background: linear-gradient(135deg,#1d976c,#93f9b9);
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-margin:0;
-}
-
-.container{
-background:white;
-padding:30px;
-width:400px;
-border-radius:12px;
-box-shadow:0 10px 25px rgba(0,0,0,0.2);
-}
-
-h2{
-text-align:center;
-margin-bottom:20px;
-color:#1d976c;
-}
-
-label{
-font-weight:bold;
-display:block;
-margin-top:10px;
-}
-
-input, select{
-width:100%;
-padding:10px;
-margin-top:5px;
-border:1px solid #ccc;
-border-radius:6px;
-}
-
-.gender-group{
-margin-top:10px;
-}
-
-.gender-option{
-display:flex;
-align-items:center;
-margin-top:5px;
-}
-
-.gender-option input{
-width:auto;
-margin-right:8px;
-}
-
-button{
-width:100%;
-padding:12px;
-margin-top:20px;
-background:#1d976c;
-color:white;
-border:none;
-border-radius:6px;
-font-size:16px;
-cursor:pointer;
-}
-
-button:hover{
-background:#148f60;
-}
-
-</style>
+    <!-- Event Page -->
+    <div id="eventPage" style="display:none">
+        <div class="header"><h1>🎪 TECHNOFEST 2026</h1><p>Explore Events & Register</p></div>
+        <div class="container">
+            <div class="flex" style="background:white;border-radius:60px;padding:0.8rem 1.2rem;margin-bottom:1.2rem">
+                <span id="userName" style="font-weight:bold;color:#1d976c">👋 User</span>
+                <button id="logoutBtn" class="btn btn-danger">Logout</button>
+            </div>
+            <div class="card" style="margin-bottom:1.5rem;background:linear-gradient(135deg,#fff9e6,#e8f5e9);text-align:center"><h2>✨ Choose Your Event ✨</h2><p>Click Register on any event card</p></div>
+            
+            <!-- Events Grid -->
+            <div class="card" style="margin-bottom:1.5rem"><h3 style="color:#1d976c;margin-bottom:1rem">📅 All Events</h3><div id="eventsGrid" class="grid"></div></div>
+            
+            <!-- Registration Form -->
+            <div class="card" id="regFormCard"><h3 style="color:#1d976c;margin-bottom:1rem">📝 Event Registration</h3>
+                <div id="selectedEventInfo" style="background:#e8f5e9;padding:0.8rem;border-radius:20px;margin-bottom:1rem;text-align:center">💡 Select an event from above</div>
+                <input type="text" id="regName" placeholder="Full Name">
+                <input type="email" id="regEmail" placeholder="Email" style="margin-top:0.8rem">
+                <input type="tel" id="regPhone" placeholder="Phone (10 digits)" maxlength="10" style="margin-top:0.8rem">
+                <input type="text" id="regCollege" placeholder="College Name" style="margin-top:0.8rem">
+                <select id="regYear" style="margin-top:0.8rem"><option value="">Year</option><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select>
+                <input type="text" id="regEvent" readonly placeholder="Selected event" style="margin-top:0.8rem;background:#f0f7f4">
+                <div class="gender-group" style="margin:0.8rem 0"><label class="gender-option"><input type="radio" name="eventGender" value="Male"> Male</label><label class="gender-option"><input type="radio" name="eventGender" value="Female"> Female</label><label class="gender-option"><input type="radio" name="eventGender" value="Other"> Other</label></div>
+                <button id="submitReg" class="btn" style="width:100%">✅ Register Now</button>
+                <div id="msgBox" class="msg"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
+// Events data
+const events = [
+    {name:"💻 Hackathon", tag:"24-Hour Coding", desc:"Build innovative solutions. Team of 3-4.", venue:"Central Auditorium", date:"Apr 15-16", prize:"₹50,000 + Trophy"},
+    {name:"📄 Paper Presentation", tag:"Research", desc:"Present research ideas. Individual/Team of 2.", venue:"Seminar Hall", date:"Apr 17", prize:"₹20,000"},
+    {name:"⌨️ Coding Comp", tag:"Code to Win", desc:"DSA challenges. Individual participation.", venue:"Lab 3", date:"Apr 18", prize:"₹30,000"},
+    {name:"🧠 Tech Quiz", tag:"Brain Battle", desc:"Rapid fire quiz. Team of 2.", venue:"Main Auditorium", date:"Apr 19", prize:"₹15,000"},
+    {name:"💃 Cultural Dance", tag:"Rhythm", desc:"Solo/Group dance. All styles.", venue:"Open Theatre", date:"Apr 20", prize:"₹25,000"}
+];
 
-function validateForm(){
+// Storage
+let users = JSON.parse(localStorage.getItem("users")) || [];
+if(users.length===0) users.push({name:"Alex Johnson",email:"alex@college.edu",phone:"9876543210",college:"Tech Univ",year:"3rd Year",gender:"Male",password:"demo123"});
+function saveUsers(){localStorage.setItem("users",JSON.stringify(users));}
+let currentUser = null;
 
-let name=document.getElementById("name").value;
-let email=document.getElementById("email").value;
-let phone=document.getElementById("phone").value;
-let college=document.getElementById("college").value;
-let event=document.getElementById("event").value;
+// DOM elements
+const authSec = document.getElementById("authSection");
+const eventSec = document.getElementById("eventPage");
+const loginTab = document.getElementById("loginTab");
+const signupTab = document.getElementById("signupTab");
+const loginPanel = document.getElementById("loginPanel");
+const signupPanel = document.getElementById("signupPanel");
 
-if(name==""){
-alert("Enter your name");
-return false;
+loginTab.onclick=()=>{loginTab.className="tab-btn active";signupTab.className="tab-btn inactive";loginPanel.style.display="block";signupPanel.style.display="none";};
+signupTab.onclick=()=>{signupTab.className="tab-btn active";loginTab.className="tab-btn inactive";signupPanel.style.display="block";loginPanel.style.display="none";};
+
+// Login
+document.getElementById("doLogin").onclick=()=>{
+    let email=document.getElementById("loginEmail").value.trim();
+    let pass=document.getElementById("loginPass").value;
+    let user=users.find(u=>u.email.toLowerCase()===email.toLowerCase() && u.password===pass);
+    if(!user){alert("Invalid credentials");return;}
+    currentUser={...user};
+    authSec.style.display="none";
+    eventSec.style.display="block";
+    document.getElementById("userName").innerHTML=`👋 Welcome, ${user.name.split(' ')[0]}`;
+    // Prefill form
+    document.getElementById("regName").value=user.name;
+    document.getElementById("regEmail").value=user.email;
+    document.getElementById("regPhone").value=user.phone;
+    document.getElementById("regCollege").value=user.college;
+    document.getElementById("regYear").value=user.year;
+    let radios=document.getElementsByName("eventGender");
+    for(let r of radios) if(r.value===user.gender) r.checked=true;
+};
+
+// Signup
+document.getElementById("doSignup").onclick=()=>{
+    let name=document.getElementById("sName").value.trim();
+    let email=document.getElementById("sEmail").value.trim();
+    let phone=document.getElementById("sPhone").value.trim();
+    let college=document.getElementById("sCollege").value.trim();
+    let year=document.getElementById("sYear").value;
+    let gender="";
+    let gs=document.getElementsByName("signupGender");
+    for(let r of gs) if(r.checked) gender=r.value;
+    let pass=document.getElementById("sPass").value;
+    if(!name){alert("Enter name");return;}
+    if(!email||!email.includes("@")){alert("Valid email");return;}
+    if(!phone||!/^\d{10}$/.test(phone)){alert("10 digit phone");return;}
+    if(!college){alert("College name");return;}
+    if(!year){alert("Select year");return;}
+    if(!gender){alert("Select gender");return;}
+    if(!pass||pass.length<6){alert("Password min 6 chars");return;}
+    if(users.find(u=>u.email.toLowerCase()===email.toLowerCase())){alert("Email exists");loginTab.click();return;}
+    users.push({name,email,phone,college,year,gender,password:pass});
+    saveUsers();
+    alert("Signup success! Please login.");
+    loginTab.click();
+    document.getElementById("sName").value="";document.getElementById("sEmail").value="";document.getElementById("sPhone").value="";
+    document.getElementById("sCollege").value="";document.getElementById("sYear").value="";document.getElementById("sPass").value="";
+    for(let r of gs) r.checked=false;
+};
+
+// Logout
+document.getElementById("logoutBtn").onclick=()=>{currentUser=null;authSec.style.display="block";eventSec.style.display="none";loginTab.click();};
+
+// Render events grid
+function renderEvents(){
+    let grid=document.getElementById("eventsGrid");
+    grid.innerHTML=events.map(e=>`
+        <div class="event-card">
+            <div class="event-header"><h3>${e.name}</h3><span style="background:#ffd966;padding:2px 10px;border-radius:20px;font-size:0.7rem">${e.tag}</span></div>
+            <div class="event-body">
+                <div class="event-info"><p>📝 ${e.desc}</p><p>📍 ${e.venue}</p><p>📅 ${e.date}</p></div>
+                <div class="prize">💰 ${e.prize}</div>
+                <button class="btn select-event" data-name="${e.name}" style="width:100%;margin-top:0.5rem">🎟️ Register for ${e.name.split(' ')[0]}</button>
+            </div>
+        </div>
+    `).join("");
+    document.querySelectorAll(".select-event").forEach(btn=>{
+        btn.onclick=()=>{
+            if(!currentUser){alert("Please login first");return;}
+            document.getElementById("regEvent").value=btn.getAttribute("data-name");
+            document.getElementById("selectedEventInfo").innerHTML=`🎯 Registering for: <strong>${btn.getAttribute("data-name")}</strong>`;
+            document.getElementById("regFormCard").scrollIntoView({behavior:"smooth"});
+        };
+    });
 }
+renderEvents();
 
-if(email=="" || !email.includes("@")){
-alert("Enter valid email");
-return false;
-}
-
-if(phone.length!=10 || isNaN(phone)){
-alert("Enter valid 10 digit phone number");
-return false;
-}
-
-if(college==""){
-alert("Enter college name");
-return false;
-}
-
-if(event==""){
-alert("Select an event");
-return false;
-}
-
-alert("Registration Successful 🎉");
-return true;
-
-}
-
+// Registration submit
+document.getElementById("submitReg").onclick=()=>{
+    if(!currentUser){alert("Session expired");return;}
+    let name=document.getElementById("regName").value.trim();
+    let email=document.getElementById("regEmail").value.trim();
+    let phone=document.getElementById("regPhone").value.trim();
+    let college=document.getElementById("regCollege").value.trim();
+    let year=document.getElementById("regYear").value;
+    let eventName=document.getElementById("regEvent").value.trim();
+    let gender="";
+    let radios=document.getElementsByName("eventGender");
+    for(let r of radios) if(r.checked) gender=r.value;
+    let msgDiv=document.getElementById("msgBox");
+    if(!name){showMsg("Enter full name",false);return;}
+    if(!email||!email.includes("@")){showMsg("Valid email required",false);return;}
+    if(!phone||!/^\d{10}$/.test(phone)){showMsg("10-digit phone number",false);return;}
+    if(!college){showMsg("College name required",false);return;}
+    if(!year){showMsg("Select year",false);return;}
+    if(!eventName){showMsg("Please select an event from above",false);return;}
+    if(!gender){showMsg("Select gender",false);return;}
+    // Save registration
+    let regs=JSON.parse(localStorage.getItem("registrations"))||[];
+    regs.push({name,email,phone,college,year,event:eventName,gender,date:new Date().toLocaleString()});
+    localStorage.setItem("registrations",JSON.stringify(regs));
+    showMsg(`🎉 Successfully registered for ${eventName}!`,true);
+    document.getElementById("regEvent").value="";
+    document.getElementById("selectedEventInfo").innerHTML="💡 Select another event from above";
+    function showMsg(msg,isSuccess){msgDiv.style.display="block";msgDiv.textContent=msg;msgDiv.className=`msg ${isSuccess?"success":"error"}`;setTimeout(()=>msgDiv.style.display="none",3000);}
+};
+function showMsg(msg,isSuccess){let d=document.getElementById("msgBox");d.style.display="block";d.textContent=msg;d.className=`msg ${isSuccess?"success":"error"}`;setTimeout(()=>d.style.display="none",3000);}
 </script>
-
-</head>
-
-<body>
-
-<div class="container">
-
-<h2>College Event Registration</h2>
-
-<form onsubmit="return validateForm()">
-
-<label>Full Name</label>
-<input type="text" id="name">
-
-<label>Email</label>
-<input type="text" id="email">
-
-<label>Phone Number</label>
-<input type="text" id="phone">
-
-<label>College Name</label>
-<input type="text" id="college">
-
-<label>Year</label>
-<select id="year">
-<option value="">Select Year</option>
-<option>1st Year</option>
-<option>2nd Year</option>
-<option>3rd Year</option>
-<option>4th Year</option>
-</select>
-
-<label>Event</label>
-<select id="event">
-<option value="">Select Event</option>
-<option>Hackathon</option>
-<option>Paper Presentation</option>
-<option>Coding Competition</option>
-<option>Technical Quiz</option>
-<option>Cultural Dance</option>
-</select>
-
-<div class="gender-group">
-<label>Gender</label>
-
-<div class="gender-option">
-<input type="radio" name="gender">
-<span>Male</span>
-</div>
-
-<div class="gender-option">
-<input type="radio" name="gender">
-<span>Female</span>
-</div>
-
-<div class="gender-option">
-<input type="radio" name="gender">
-<span>Other</span>
-</div>
-
-</div>
-
-<button type="submit">Register</button>
-
-</form>
-
-</div>
-
 </body>
 </html>
